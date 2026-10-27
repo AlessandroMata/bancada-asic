@@ -103,6 +103,17 @@ Proteções: o código usa letras e números sem ambiguidade (sem 0/O nem 1/I/L)
 
 O recurso só existe com `PLANO=pago` no servidor (variável de ambiente, fora do banco, para o cliente não se habilitar sozinho). Sem o plano, o controle aparece bloqueado, a rota recusa (402) e os painéis já ativados deixam de responder.
 
+## Vendas de máquinas e peças
+
+O item **Vendas** do menu reúne duas coisas, separadas das ordens de serviço:
+
+1. **Máquinas para venda** — o estoque de revenda. Use **Nova máquina** e informe modelo, série, condição, origem e preço (o custo só aparece para quem vê custos). Enquanto estiver *Disponível*, a máquina pode ser editada ou removida.
+2. **Vendas** — o histórico. Para vender uma máquina, use o ícone de venda na linha dela; para vender uma peça, use **Vender peça** e escolha item e quantidade.
+
+Em ambos os casos informe o comprador (um cliente cadastrado ou um nome avulso), o valor, a forma de pagamento, quanto foi pago agora e a garantia. Se sobrar saldo, use o ícone de **receber** na venda para lançar os próximos pagamentos. A venda de peça baixa o saldo do estoque de peças e não deixa vender o que está reservado para uma OS.
+
+O **administrador** pode cancelar uma venda (com motivo): a máquina volta a ficar disponível e as peças voltam ao saldo.
+
 ## Perfis e permissões
 
 Cada usuário tem um **perfil**: Administrador, Atendente, Técnico ou Cliente (portal). O perfil define o que a pessoa pode fazer; o administrador pode **liberar ou bloquear itens por pessoa** em *Administração → Permissões* (atendentes e técnicos). O Administrador sempre tem tudo, e o Cliente do portal nunca ganha permissão interna.
@@ -116,6 +127,7 @@ Cada usuário tem um **perfil**: Administrador, Atendente, Técnico ou Cliente (
 | Cadastrar e editar clientes | sim | não |
 | Registrar pagamentos | sim | não |
 | Gerenciar o estoque | não | não |
+| Gerenciar vendas de máquinas | sim | não |
 | Gerenciar o painel do cliente | não | não |
 
 Esses são os padrões (iguais ao comportamento anterior). Itens que mudam são destacados na tela e podem ser revertidos com **Restaurar padrão do perfil**. Trocar o perfil da pessoa também restaura o padrão do novo perfil. Quem não pode ver custos não recebe o custo em lugar nenhum (OS, tabela de preços, estoque, indicadores). Liberar uma permissão **não** dá acesso a telas que o perfil nunca tem (por exemplo, um técnico com “editar clientes” continua sem atendimento). Usuários, perfis, backup, configurações e contratos continuam exclusivos do administrador. Cada alteração fica na auditoria.

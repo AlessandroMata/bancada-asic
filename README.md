@@ -4,7 +4,7 @@
 
 [![Licença](https://img.shields.io/badge/licen%C3%A7a-MIT%20com%20atribui%C3%A7%C3%A3o-blue)](LICENSE)
 ![Node](https://img.shields.io/badge/node-%3E%3D22.13-339933)
-![Testes](https://img.shields.io/badge/testes-48%20passando-brightgreen)
+![Testes](https://img.shields.io/badge/testes-51%20passando-brightgreen)
 
 > Código aberto sob a [licença MIT com requisito de atribuição](LICENSE): você pode usar, modificar e **comercializar**, desde que mantenha o aviso de autoria e o crédito visível no rodapé do sistema. Veja [Autor e licença](#autor-e-licença).
 
@@ -35,7 +35,7 @@ Capturas com dados fictícios de demonstração.
 |---|---|
 | **Entrada** — login por e-mail e senha<br>![Tela de entrada](docs/img/01-login.png) | **Painel** — indicadores e chamados recentes<br>![Painel](docs/img/02-painel.png) |
 | **Ordens de serviço** — busca e filtros por status, técnico e prioridade<br>![Ordens de serviço](docs/img/03-ordens.png) | **Tabela de preços** — preço, custo, garantia e modelos<br>![Tabela de preços](docs/img/04-precos.png) |
-| **Administração** — equipe, perfis e permissões<br>![Administração](docs/img/05-admin.png) | |
+| **Administração** — equipe, perfis e permissões<br>![Administração](docs/img/05-admin.png) | **Vendas** — máquinas para revenda, venda de peças e recebimentos<br>![Vendas](docs/img/06-vendas.png) |
 
 ## O que o sistema faz
 
@@ -62,6 +62,7 @@ Capturas com dados fictícios de demonstração.
 ### Comercial
 - **Tabela de preços** (serviços e peças com preço, custo, garantia e modelos): o técnico escolhe o item e **o preço vem do servidor, nunca do campo digitado**. Item fora da tabela fica marcado para conferência.
 - **Orçamento e decisão por componente**, com histórico de decisões e limite de aprovação por contrato.
+- **Vendas** (item próprio no menu): **estoque de máquinas para venda** (modelo, série, condição, origem, preço e custo) e **venda de peças** direto do estoque de peças, com baixa automática de saldo (respeitando o que está reservado para OS). Cada venda registra comprador (cliente ou avulso), forma de pagamento, valor pago e saldo, recebimentos parciais, garantia e margem; só o administrador cancela uma venda, que devolve a máquina ao estoque de venda ou as peças ao saldo. Fica fora do portal do cliente e só aparece a quem tem a permissão de vendas.
 - **Comentários** na OS e nos itens, cada um *interno* (oculto) ou *visível ao cliente*.
 - **Contratos** (vigência, SLA em horas, prioridade, limite de aprovação), visitas e **preventivas** com próxima data gerada automaticamente.
 - **Indicadores:** tempo até a entrega, primeiro teste aprovado, reincidência, margem orçada, falhas por modelo/revisão/ponto, ocupação de bancada.
@@ -81,11 +82,11 @@ Capturas com dados fictícios de demonstração.
 | Perfil | Para quem | Pode, por padrão |
 |---|---|---|
 | **Administrador** | Dono/gestor | Tudo, sempre (não pode ser restringido). Usuários, perfis, backup, contratos e configurações são **só dele**. |
-| **Atendente** | Balcão | Abrir OS, cadastrar clientes e equipamentos, orçamentos, decisões, pagamentos, lotes e logística. Vê custos. |
+| **Atendente** | Balcão | Abrir OS, cadastrar clientes e equipamentos, orçamentos, decisões, pagamentos, vendas de máquinas e peças, lotes e logística. Vê custos. |
 | **Técnico** | Bancada | Só as OS atribuídas: diagnóstico, testes, firmware, peças, fotos e orçamento pela tabela. **Não vê custo** nem define desconto. |
 | **Cliente** | Fazenda/empresa | Só os dados da própria empresa, sem custos, notas internas nem dados de outros clientes. |
 
-O administrador pode **liberar ou bloquear** oito itens por atendente ou técnico (*Administração → Permissões*): ver custos, montar orçamentos, decidir/dar desconto, gerenciar a tabela de preços, cadastrar clientes, registrar pagamentos, gerenciar estoque e gerenciar o painel do cliente. Os padrões reproduzem a tabela acima; trocar o perfil de alguém restaura o padrão do novo perfil. A regra está centralizada em [`lib/perms.mjs`](lib/perms.mjs) (`can()`), e quem não pode ver custos não recebe o custo em lugar nenhum da resposta do servidor.
+O administrador pode **liberar ou bloquear** nove itens por atendente ou técnico (*Administração → Permissões*): ver custos, montar orçamentos, decidir/dar desconto, gerenciar a tabela de preços, cadastrar clientes, registrar pagamentos, gerenciar estoque, gerenciar vendas de máquinas e gerenciar o painel do cliente. Os padrões reproduzem a tabela acima; trocar o perfil de alguém restaura o padrão do novo perfil. A regra está centralizada em [`lib/perms.mjs`](lib/perms.mjs) (`can()`), e quem não pode ver custos não recebe o custo em lugar nenhum da resposta do servidor.
 
 ## Tecnologia e arquitetura
 
@@ -110,7 +111,7 @@ O administrador pode **liberar ou bloquear** oito itens por atendente ou técnic
 
 ### Banco de dados
 
-Migrações em [`drizzle/`](drizzle): `0000` (`store`, `records`), `0001` (índices de registros) e `0002` (`credentials`, `tokens`, `attempts`). Coleções de documentos: usuários, clientes, ordens, peças e movimentos, equipamentos e eventos, lotes, roteiros, diagnósticos, defeitos, bancadas, reservas, sessões de teste, firmware, artigos, retornos, doadoras, recuperados, remessas, contratos, visitas, viabilidades, tabela de preços e auditoria.
+Migrações em [`drizzle/`](drizzle): `0000` (`store`, `records`), `0001` (índices de registros) e `0002` (`credentials`, `tokens`, `attempts`). Coleções de documentos: usuários, clientes, ordens, peças e movimentos, equipamentos e eventos, lotes, máquinas para venda e vendas, roteiros, diagnósticos, defeitos, bancadas, reservas, sessões de teste, firmware, artigos, retornos, doadoras, recuperados, remessas, contratos, visitas, viabilidades, tabela de preços e auditoria.
 
 ## Rodando localmente
 
@@ -200,7 +201,7 @@ app/                páginas e rotas (App Router)
   api/              rotas da API (auth, data, files, painel, backup, track)
   *.tsx             telas: ui (sistema), asic-ui (módulos ASIC e portal),
                     auth-ui, panel-ui, clients-ui, prices-ui, perms-ui, comments-ui,
-                    photos-ui, credits (rodapé do autor)
+                    photos-ui, sales-ui (vendas), credits (rodapé do autor)
 lib/                regras de negócio e testes (perms, asic, domain, auth, http, storage…)
 db/                 esquema (Drizzle) das tabelas relacionais
 drizzle/            migrações SQL
@@ -216,7 +217,7 @@ scripts/            utilitários de build do template
 ## Testes
 
 ```sh
-node --test lib/*.test.mjs   # 48 testes de regras de negócio, permissões, isolamento e segurança
+node --test lib/*.test.mjs   # 51 testes de regras de negócio, permissões, isolamento e segurança
 npx tsc --noEmit             # verificação de tipos
 npm run lint
 ```

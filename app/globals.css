@@ -214,3 +214,5 @@ tr.dim td{opacity:.55}
 .authpage,.panelpage,.panelentry,.track,.startup{padding-bottom:56px}
 .portal .credit{margin-top:24px}
 @media print{.credit{display:none}}
+
+.rowactions{white-space:nowrap;text-align:right}.rowactions .iconbtn{margin-left:4px}

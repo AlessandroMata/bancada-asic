@@ -17,6 +17,7 @@ Catálogo completo do que o sistema faz, organizado pelo caminho de um equipamen
 11. [Conhecimento e indicadores](#11-conhecimento-e-indicadores)
 12. [Acesso, perfis e auditoria](#12-acesso-perfis-e-auditoria)
 13. [Documentos e exportação](#13-documentos-e-exportação)
+14. [Vendas de máquinas e peças](#14-vendas-de-máquinas-e-peças)
 
 ## 1. Entrada do equipamento
 
@@ -145,6 +146,19 @@ Catálogo completo do que o sistema faz, organizado pelo caminho de um equipamen
 | **Etiquetas** | Adm, Atd, Téc | Etiqueta com QR Code para colar no equipamento. |
 | **Exportação CSV** | Adm | Dados em planilha, com proteção contra injeção de fórmulas. |
 | **Backup JSON** | Adm | Exportação dos registros, sem credenciais. |
+
+## 14. Vendas de máquinas e peças
+
+Item **Vendas** no menu lateral, separado das OS. Visível só para quem tem a permissão *Gerenciar vendas de máquinas* (administrador sempre; atendente por padrão). Não aparece no portal nem no painel por código do cliente.
+
+| Funcionalidade | Quem | O que faz |
+|---|---|---|
+| **Máquinas para venda** | Adm, Atd | Estoque próprio para revenda: modelo, marca, série única, condição (nova, usada testada, recondicionada, para peças), hashrate, origem, preço e custo. Editar e remover enquanto disponível. |
+| **Vender máquina** | Adm, Atd | Comprador cliente cadastrado ou avulso, valor, forma de pagamento (Pix, dinheiro, cartão, transferência, boleto), valor pago agora e garantia. A máquina fica *Vendida* e não pode ser vendida de novo. |
+| **Vender peça** | Adm, Atd | Escolhe a peça do estoque e a quantidade; o valor sugerido vem do preço da peça. Baixa o saldo e grava a movimentação, sem vender o que está reservado para uma OS. |
+| **Recebimentos** | Adm, Atd | Registra pagamentos parciais até quitar; o saldo nunca fica negativo. |
+| **Cancelamento** | Adm | Exige motivo, devolve a máquina ao estoque de venda ou as peças ao saldo, e fica na auditoria. |
+| **Indicadores** | Adm, Atd | Disponíveis, valor em estoque, vendas concluídas e a receber. Custo e margem só com a permissão *Ver custos*. |
 
 ---
 
