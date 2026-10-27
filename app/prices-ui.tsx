@@ -13,7 +13,7 @@ export default function PriceTable({data,user,act,admin}:any){
   <section className="card"><div className="sectionhead"><h2>Itens da tabela <span className="count">{items.length}</span></h2>
    <div className="toolbarinline"><div className="search"><Search size={16}/><input aria-label="Buscar item" value={search} onChange={e=>setSearch(e.target.value)} placeholder="Descrição ou modelo"/></div>
    <select aria-label="Filtrar por categoria" value={cat} onChange={e=>setCat(e.target.value)}><option value="">Todas as categorias</option><option>Serviço</option><option>Peça</option></select>
-   {admin&&<button className="btn primary" onClick={()=>setEdit({})}><Plus size={15}/>Novo item</button>}</div></div>
+   {admin&&<button className="btn primary" data-new="Novo item" onClick={()=>setEdit({})}><Plus size={15}/>Novo item</button>}</div></div>
    <div className="tablewrap"><table><thead><tr><th>DESCRIÇÃO</th><th>CATEGORIA</th><th>PREÇO</th>{user.can?.verCustos&&<th>CUSTO</th>}<th>GARANTIA</th><th>MODELOS</th><th>SITUAÇÃO</th>{admin&&<th/>}</tr></thead><tbody>
     {shown.map((p:any)=><tr key={p.id} className={p.active===false?'dim':''}><td><strong>{p.name}</strong></td><td>{p.category}</td><td>{brl(p.price)}</td>{user.can?.verCustos&&<td>{brl(p.cost)}</td>}<td>{p.warranty} dias</td><td>{p.models||'Todos'}</td><td><span className={'badge '+(p.active===false?'gray':'green')}><i/>{p.active===false?'Desativado':'Ativo'}</span></td>{admin&&<td><button className="iconbtn" aria-label={'Editar '+p.name} onClick={()=>setEdit(p)}><Pencil size={16}/></button></td>}</tr>)}
    </tbody></table>

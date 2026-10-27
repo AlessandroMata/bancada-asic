@@ -31,8 +31,8 @@ export default function SalesPage({data,user,act,admin}:any){
   <section className="card"><div className="sectionhead"><h2>{tab} <span className="count">{tab==='Vendas'?sales.length:machines.length}</span></h2>
    <div className="toolbarinline"><div className="tabs" role="tablist">{['Máquinas para venda','Vendas'].map(t=><button key={t} role="tab" aria-selected={tab===t} className={tab===t?'active':''} onClick={()=>setTab(t)}>{t}</button>)}</div>
    <div className="search"><Search size={16}/><input aria-label="Buscar" value={search} onChange={e=>setSearch(e.target.value)} placeholder="Modelo, série ou comprador"/></div>
-   <button className="btn" onClick={()=>setModal({title:'Vender peça',action:'asic_sale',form:<PartSaleForm parts={parts} clients={clients}/>})}><HandCoins size={15}/>Vender peça</button>
-   {tab==='Máquinas para venda'&&<button className="btn primary" onClick={()=>setModal({title:'Nova máquina para venda',action:'asic_sale_machine',form:machineForm({})})}><Plus size={15}/>Nova máquina</button>}</div></div>
+   <button className="btn" data-new="Nova venda" onClick={()=>setModal({title:'Nova venda',action:'asic_sale',form:<NewSaleForm machines={available} parts={parts} clients={clients}/>})}><HandCoins size={15}/>Nova venda</button>
+   {tab==='Máquinas para venda'&&<button className="btn primary" data-new="Nova máquina" onClick={()=>setModal({title:'Nova máquina para venda',action:'asic_sale_machine',form:machineForm({})})}><Plus size={15}/>Nova máquina</button>}</div></div>
    {tab==='Máquinas para venda'?<div className="tablewrap"><table><thead><tr><th>CÓDIGO</th><th>MÁQUINA</th><th>SÉRIE</th><th>CONDIÇÃO</th><th>ORIGEM</th><th>PREÇO</th>{costs&&<th>CUSTO</th>}<th>SITUAÇÃO</th><th/></tr></thead><tbody>
     {shownM.map((m:any)=><tr key={m.id} className={m.status==='Vendida'?'dim':''}><td>{m.code}</td><td><strong>{m.model}</strong><br/><small>{[m.brand,m.hashrate?m.hashrate+' TH/s':''].filter(Boolean).join(' · ')}</small></td><td>{m.serial}</td><td>{m.condition}</td><td>{m.origin}</td><td>{brl(m.price)}</td>{costs&&<td>{brl(m.cost)}</td>}
      <td><span className={'badge '+(m.status==='Vendida'?'gray':'green')}><i/>{m.status}</span></td>
@@ -67,11 +67,19 @@ function PartSaleForm({parts,clients}:any){
   <Fld label="Valor pago agora (R$)" name="paid" type="number" min="0" step="0.01" defaultValue={0}/><Sel label="Forma de pagamento *" name="method" options={METHODS}/><Fld label="Garantia (dias)" name="warranty" type="number" min="0" max="3650" step="1" defaultValue={0}/>
   <label className="field full"><span>Observações</span><textarea name="notes" rows={2} maxLength={2000}/></label></>;
 }
-function SaleForm({m,clients}:any){
- const [client,setClient]=useState('');
+function SaleForm({m,list,clients}:any){
+ const [client,setClient]=useState(''),[id,setId]=useState(m?.id||list?.[0]?.id||''),cur=m||(list||[]).find((x:any)=>x.id===id);
+ if(!cur)return <p className="full muted">Nenhuma máquina disponível para venda. Cadastre uma em "Nova máquina".</p>;
  return <>
+  {!m&&<label className="field full"><span>Máquina *</span><select name="machine" value={id} onChange={e=>setId(e.target.value)}>{list.map((x:any)=><option key={x.id} value={x.id}>{x.code} — {x.model} ({x.serial})</option>)}</select></label>}
   <Buyer clients={clients} client={client} setClient={setClient}/>
-  <Fld label="Valor da venda (R$) *" name="price" type="number" min="0" step="0.01" defaultValue={m.price} required/><Fld label="Valor pago agora (R$)" name="paid" type="number" min="0" step="0.01" defaultValue={0}/>
+  <Fld label="Valor da venda (R$) *" name="price" type="number" min="0" step="0.01" key={cur.id} defaultValue={cur.price} required/><Fld label="Valor pago agora (R$)" name="paid" type="number" min="0" step="0.01" defaultValue={0}/>
   <Sel label="Forma de pagamento *" name="method" options={METHODS}/><Fld label="Garantia (dias)" name="warranty" type="number" min="0" max="3650" step="1" defaultValue={30}/>
   <label className="field full"><span>Observações</span><textarea name="notes" rows={2} maxLength={2000}/></label></>;
+}
+// "Nova venda": escolhe entre máquina do estoque de venda e peça do estoque de peças.
+function NewSaleForm({machines,parts,clients}:any){
+ const [tipo,setTipo]=useState(machines.length?'Máquina':'Peça');
+ return <><Sel label="O que será vendido *" options={['Máquina','Peça']} value={tipo} onChange={(e:any)=>setTipo(e.target.value)}/>
+  {tipo==='Máquina'?<SaleForm list={machines} clients={clients}/>:<PartSaleForm parts={parts} clients={clients}/>}</>;
 }

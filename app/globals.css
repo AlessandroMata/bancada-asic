@@ -216,3 +216,5 @@ tr.dim td{opacity:.55}
 @media print{.credit{display:none}}
 
 .rowactions{white-space:nowrap;text-align:right}.rowactions .iconbtn{margin-left:4px}
+
+.headactions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}

@@ -103,6 +103,25 @@ Proteções: o código usa letras e números sem ambiguidade (sem 0/O nem 1/I/L)
 
 O recurso só existe com `PLANO=pago` no servidor (variável de ambiente, fora do banco, para o cliente não se habilitar sozinho). Sem o plano, o controle aparece bloqueado, a rota recusa (402) e os painéis já ativados deixam de responder.
 
+## Onde cadastrar cada coisa (botões no topo de cada menu)
+
+Cada menu tem seus próprios botões de "novo" no canto superior direito. O primeiro (azul) é a ação principal da tela:
+
+| Menu | Botões no topo |
+|---|---|
+| Painel e Ordens de serviço | Nova ordem de serviço |
+| Equipamentos | Novo equipamento |
+| Lotes e logística | Receber lote · Preparar devolução |
+| Bancada e testes | Novo recurso (bancada ou instrumento, só administrador) · Iniciar teste |
+| Conhecimento | Novo artigo (a partir de um reparo concluído) |
+| Clientes e contratos | Novo cliente · Novo contrato (só administrador) |
+| Tabela de preços | Novo item |
+| Estoque e sucata | Nova peça · Entrada de estoque · Entrada de sucata (registra a placa doadora) |
+| Vendas | Nova venda (máquina ou peça) · Nova máquina (para venda) |
+| Administração | Novo usuário |
+
+O botão só aparece para quem tem permissão para a ação. Relatórios não tem botão de cadastro.
+
 ## Vendas de máquinas e peças
 
 O item **Vendas** do menu reúne duas coisas, separadas das ordens de serviço:

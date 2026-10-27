@@ -149,6 +149,8 @@ Catálogo completo do que o sistema faz, organizado pelo caminho de um equipamen
 
 ## 14. Vendas de máquinas e peças
 
+> Cada menu tem os próprios botões de "novo" no topo (por exemplo *Receber lote* em Lotes, *Entrada de sucata* em Estoque e *Nova venda* em Vendas); veja a tabela em [GUIA-ASIC.md](GUIA-ASIC.md#onde-cadastrar-cada-coisa-botões-no-topo-de-cada-menu).
+
 Item **Vendas** no menu lateral, separado das OS. Visível só para quem tem a permissão *Gerenciar vendas de máquinas* (administrador sempre; atendente por padrão). Não aparece no portal nem no painel por código do cliente.
 
 | Funcionalidade | Quem | O que faz |
