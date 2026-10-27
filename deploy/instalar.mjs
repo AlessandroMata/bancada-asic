@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // © 2026 Alessandro Mata · alessandro.mata@gmail.com · github.com/AlessandroMata/bancada-asic · licença em LICENSE (mantenha este crédito)
-// Instala/atualiza o ambiente de UM cliente no servidor Hetzner, sem porta pública: o acesso é só por Cloudflare Tunnel.
+// Instala/atualiza o ambiente de UM cliente em um servidor com Docker, sem porta pública: o acesso é só por Cloudflare Tunnel.
 // Uso: DEPLOY_HOST=usuario@servidor DEPLOY_SSH_KEY=~/.ssh/chave CLOUDFLARE_API_TOKEN=… CLOUDFLARE_ACCOUNT_ID=… CLOUDFLARE_ZONE_ID=… \
 //      node deploy/instalar.mjs --slug cliente --domain cliente.exemplo.com.br [--plano pago]
 import {execFileSync,execSync} from 'node:child_process';
@@ -19,7 +19,9 @@ const put=(path,content,mode='600')=>ssh(`set -e; umask 077; cat > ${path}.new; 
 const CF=async(method,path,body)=>{const r=await fetch('https://api.cloudflare.com/client/v4'+path,{method,headers:{Authorization:'Bearer '+TOKEN,'Content-Type':'application/json',Accept:'application/json','Accept-Language':'pt-BR,pt;q=0.9','User-Agent':UA},body:body?JSON.stringify(body):undefined});const j=await r.json();if(!j.success)throw Error(method+' '+path+' → '+(j.errors||[]).map(e=>e.message).join('; '));return j.result};
 // 1) Cloudflare primeiro: se o token não puder escrever, descobrimos antes do build
 console.log('1/6 túnel e DNS na Cloudflare');
-const tname=slug+'-hetzner';let t=(await CF('GET',`/accounts/${ACC}/cfd_tunnel?name=${tname}&is_deleted=false`))[0];
+const tname=slug+'-tunel';const find=n=>CF('GET',`/accounts/${ACC}/cfd_tunnel?name=${n}&is_deleted=false`).then(r=>r[0]);
+// aceita o nome antigo (<slug>-hetzner) para não recriar o túnel de ambientes já instalados
+let t=await find(tname)||await find(slug+'-hetzner');
 if(!t)t=await CF('POST',`/accounts/${ACC}/cfd_tunnel`,{name:tname,config_src:'cloudflare'});
 const tunnelToken=t.token||await CF('GET',`/accounts/${ACC}/cfd_tunnel/${t.id}/token`);
 await CF('PUT',`/accounts/${ACC}/cfd_tunnel/${t.id}/configurations`,{config:{ingress:[{hostname:domain,service:'http://app:8787'},{service:'http_status:404'}]}});
@@ -30,7 +32,7 @@ const cfg=JSON.parse(readFileSync('dist/server/wrangler.json','utf8'));cfg.name=
 cfg.d1_databases=[{binding:'DB',database_name:slug+'-db',database_id:'00000000-0000-4000-8000-000000000000',migrations_dir:'../../drizzle'}];cfg.r2_buckets=[{binding:'BUCKET',bucket_name:slug+'-fotos'}];
 writeFileSync('dist/server/wrangler.docker.json',JSON.stringify(cfg,null,2));
 const stage='/tmp/'+slug+'-ctx';rmSync(stage,{recursive:true,force:true});mkdirSync(stage,{recursive:true});
-cpSync('dist',stage+'/dist',{recursive:true});cpSync('drizzle',stage+'/drizzle',{recursive:true});cpSync('deploy/hetzner/Dockerfile',stage+'/Dockerfile');cpSync('deploy/hetzner/entrypoint.sh',stage+'/entrypoint.sh');
+cpSync('dist',stage+'/dist',{recursive:true});cpSync('drizzle',stage+'/drizzle',{recursive:true});cpSync('deploy/docker/Dockerfile',stage+'/Dockerfile');cpSync('deploy/docker/entrypoint.sh',stage+'/entrypoint.sh');
 console.log('3/6 enviando e construindo a imagem no servidor');
 ssh(`mkdir -p ${DIR}/build ${DIR}/data && chown 1000:1000 ${DIR}/data && chmod 750 ${DIR} && rm -rf ${DIR}/build/*`);
 execSync(`tar czf - -C ${stage} . | ssh -o IdentitiesOnly=yes -i ${KEY} ${HOST} "tar xzf - -C ${DIR}/build"`);

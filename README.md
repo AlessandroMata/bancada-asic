@@ -205,7 +205,8 @@ lib/                regras de negócio e testes (perms, asic, domain, auth, http
 db/                 esquema (Drizzle) das tabelas relacionais
 drizzle/            migrações SQL
 worker/             entrada do Worker (cabeçalhos de segurança e conectores)
-deploy/             implantação por cliente (Docker + Cloudflare Tunnel; Workers)
+deploy/             implantação por cliente: instalar.mjs (Docker + Cloudflare Tunnel),
+                    docker/ (Dockerfile e entrypoint), cliente.mjs (Workers)
 docs/img/           capturas de tela do README
 marketing/          gerador do folder de divulgação (HTML → PNG)
 components/ui/      componentes de interface (shadcn)
