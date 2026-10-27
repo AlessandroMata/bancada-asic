@@ -1,0 +1,39 @@
+MIT License with Attribution Requirement
+(Licença MIT com requisito de atribuição)
+
+Copyright (c) 2026 Alessandro Mata <alessandro.mata@gmail.com> · +55 31 98754-9399
+Source: https://github.com/AlessandroMata/bancada-asic
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+1. Notice. The above copyright notice and this permission notice shall be
+   included in all copies or substantial portions of the Software.
+
+2. Attribution. Any application, product or service that incorporates the
+   Software or a substantial portion of it must keep the author credit
+   ("Desenvolvido por Alessandro Mata", with the author's contact) visible in
+   its user interface, in the footer or in an equivalent permanent location,
+   and must not remove or hide the copyright headers in the source files.
+   Modified versions may add their own credits and must state that they have
+   been modified, but the original credit must remain.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+--------------------------------------------------------------------------
+Resumo em português (não substitui o texto acima):
+você pode usar, copiar, modificar, distribuir e vender este software, inclusive
+em produtos comerciais, desde que (1) mantenha este aviso de direitos autorais
+e a licença junto ao código e (2) mantenha visível na interface do seu produto
+o crédito "Desenvolvido por Alessandro Mata" com o contato do autor, sem
+remover os cabeçalhos de autoria dos arquivos. Não há garantia de nenhum tipo.
