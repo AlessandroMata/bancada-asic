@@ -4,7 +4,7 @@
 
 [![Licença](https://img.shields.io/badge/licen%C3%A7a-MIT%20com%20atribui%C3%A7%C3%A3o-blue)](LICENSE)
 ![Node](https://img.shields.io/badge/node-%3E%3D22.13-339933)
-![Testes](https://img.shields.io/badge/testes-51%20passando-brightgreen)
+![Testes](https://img.shields.io/badge/testes-52%20passando-brightgreen)
 
 > Código aberto sob a [licença MIT com requisito de atribuição](LICENSE): você pode usar, modificar e **comercializar**, desde que mantenha o aviso de autoria e o crédito visível no rodapé do sistema. Veja [Autor e licença](#autor-e-licença).
 
@@ -66,6 +66,7 @@ Capturas com dados fictícios de demonstração.
 - **Comentários** na OS e nos itens, cada um *interno* (oculto) ou *visível ao cliente*.
 - **Contratos** (vigência, SLA em horas, prioridade, limite de aprovação), visitas e **preventivas** com próxima data gerada automaticamente.
 - **Indicadores:** tempo até a entrega, primeiro teste aprovado, reincidência, margem orçada, falhas por modelo/revisão/ponto, ocupação de bancada.
+- **Termo de entrada** em PDF, na própria OS: dados do cliente, equipamentos e séries, estado de entrega (completa ou o que falta), acessórios, fotos do recebimento, cláusulas e linhas de assinatura. As cláusulas são editáveis em *Administração* (há um texto padrão; revise com seu jurídico).
 - **Laudo técnico** para impressão em PDF, etiquetas e exportação CSV (com proteção contra injeção de fórmulas).
 
 ### Cliente
@@ -217,7 +218,7 @@ scripts/            utilitários de build do template
 ## Testes
 
 ```sh
-node --test lib/*.test.mjs   # 51 testes de regras de negócio, permissões, isolamento e segurança
+node --test lib/*.test.mjs   # 52 testes de regras de negócio, permissões, isolamento e segurança
 npx tsc --noEmit             # verificação de tipos
 npm run lint
 ```

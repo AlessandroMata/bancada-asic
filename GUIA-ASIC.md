@@ -103,6 +103,12 @@ Proteções: o código usa letras e números sem ambiguidade (sem 0/O nem 1/I/L)
 
 O recurso só existe com `PLANO=pago` no servidor (variável de ambiente, fora do banco, para o cliente não se habilitar sozinho). Sem o plano, o controle aparece bloqueado, a rota recusa (402) e os painéis já ativados deixam de responder.
 
+## Termo de entrada (PDF)
+
+Abra a OS e clique em **Termo de entrada / PDF**. O documento reúne cliente, equipamentos com número de série, estado de entrega (completa ou o que está faltando), acessórios, fotos do recebimento, as cláusulas e as linhas de assinatura. Use **Imprimir / salvar PDF** e escolha "Salvar como PDF" no navegador. As fotos entram a partir das tiradas no check-in.
+
+As cláusulas vêm de um texto padrão. O administrador pode trocá-lo em **Administração → Informações da loja → Cláusulas do termo** (uma por linha). Deixar vazio volta ao padrão. Revise o texto com seu jurídico antes de usar.
+
 ## Onde cadastrar cada coisa (botões no topo de cada menu)
 
 Cada menu tem seus próprios botões de "novo" no canto superior direito. O primeiro (azul) é a ação principal da tela:

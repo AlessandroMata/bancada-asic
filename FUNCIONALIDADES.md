@@ -142,6 +142,7 @@ Catálogo completo do que o sistema faz, organizado pelo caminho de um equipamen
 
 | Funcionalidade | Quem | O que faz |
 |---|---|---|
+| **Termo de entrada em PDF** | Adm, Atd, Téc | Na OS: cliente, equipamentos e séries, estado de entrega, acessórios, fotos do recebimento, cláusulas e assinaturas. Cláusulas editáveis pelo administrador. |
 | **Laudo técnico em PDF** | Adm, Atd, Téc | Página própria para impressão e PDF pelo navegador. |
 | **Etiquetas** | Adm, Atd, Téc | Etiqueta com QR Code para colar no equipamento. |
 | **Exportação CSV** | Adm | Dados em planilha, com proteção contra injeção de fórmulas. |
