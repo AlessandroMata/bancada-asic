@@ -2,7 +2,7 @@
 // © 2026 Alessandro Mata · alessandro.mata@gmail.com · github.com/AlessandroMata/bancada-asic · licença em LICENSE (mantenha este crédito)
 // Instala/atualiza o ambiente de UM cliente no servidor Hetzner, sem porta pública: o acesso é só por Cloudflare Tunnel.
 // Uso: DEPLOY_HOST=usuario@servidor DEPLOY_SSH_KEY=~/.ssh/chave CLOUDFLARE_API_TOKEN=… CLOUDFLARE_ACCOUNT_ID=… CLOUDFLARE_ZONE_ID=… \
-//      node deploy/instalar-hetzner.mjs --slug cliente --domain cliente.exemplo.com.br [--plano pago]
+//      node deploy/instalar.mjs --slug cliente --domain cliente.exemplo.com.br [--plano pago]
 import {execFileSync,execSync} from 'node:child_process';
 import {readFileSync,writeFileSync,mkdirSync,cpSync,rmSync} from 'node:fs';
 import {randomBytes} from 'node:crypto';

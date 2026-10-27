@@ -149,12 +149,12 @@ Variáveis do servidor (em produção, segredos do ambiente; em desenvolvimento,
 
 ### Servidor próprio, um ambiente isolado por cliente (recomendado)
 
-[`deploy/instalar-hetzner.mjs`](deploy/instalar-hetzner.mjs) instala (ou atualiza) um cliente em um servidor com Docker, **sem nenhuma porta publicada**: o acesso é somente por **Cloudflare Tunnel**, o TLS termina na Cloudflare e o IP do servidor não é exposto.
+[`deploy/instalar.mjs`](deploy/instalar.mjs) instala (ou atualiza) um cliente em um servidor com Docker, **sem nenhuma porta publicada**: o acesso é somente por **Cloudflare Tunnel**, o TLS termina na Cloudflare e o IP do servidor não é exposto.
 
 ```sh
 DEPLOY_HOST=usuario@servidor DEPLOY_SSH_KEY=~/.ssh/chave \
 CLOUDFLARE_API_TOKEN=… CLOUDFLARE_ACCOUNT_ID=… CLOUDFLARE_ZONE_ID=… \
-node deploy/instalar-hetzner.mjs --slug cliente --domain cliente.exemplo.com.br [--plano pago]
+node deploy/instalar.mjs --slug cliente --domain cliente.exemplo.com.br [--plano pago]
 ```
 
 O script, em ordem: cria o túnel e o DNS na Cloudflare (falhando cedo se o token não puder escrever), faz o build, envia o contexto e constrói a imagem no servidor, grava a configuração e os segredos (modo `600`), sobe os containers e confere que o endereço responde. Imprime o `SETUP_TOKEN` **uma única vez**.
